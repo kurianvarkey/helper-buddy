@@ -1,5 +1,5 @@
 {
-    "name": "net4ideas.com/helper-buddy",
+    "name": "kurianvarkey/helper-buddy",
     "version": "1.0.0",
     "description": "Helper class to validate and correct JSON attribute types, ensuring proper structure and defaults for string, int, float, and boolean.",
     "type": "library",

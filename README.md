@@ -5,7 +5,7 @@
 You can install the package via composer:
 
 ```bash
-composer require net4ideas.com/helper-buddy
+composer require kurianvarkey/helper-buddy
 ```
 
 ## JsonBuddy
