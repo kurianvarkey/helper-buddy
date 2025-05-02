@@ -1,0 +1,220 @@
+[
+    {
+        "name": "basic_string_default",
+        "inputJson": "{\"name\":null,\"age\":30}",
+        "keys": {
+            "name": "string:Anonymous"
+        },
+        "expectedJson": "{\"name\":\"Anonymous\",\"age\":30}"
+    },
+    {
+        "name": "existing_string",
+        "inputJson": "{\"name\":\"JohnDoe\",\"age\":30}",
+        "keys": {
+            "name": "string:Anonymous"
+        },
+        "expectedJson": "{\"name\":\"JohnDoe\",\"age\":30}"
+    },
+    {
+        "name": "string_empty_default",
+        "inputJson": "{\"description\":null}",
+        "keys": {
+            "description": "string:\"\""
+        },
+        "expectedJson": "{\"description\":\"\"}"
+    },
+    {
+        "name": "int_default",
+        "inputJson": "{\"count\":null}",
+        "keys": {
+            "count": "int:0"
+        },
+        "expectedJson": "{\"count\":0}"
+    },
+    {
+        "name": "existing_int",
+        "inputJson": "{\"count\":10}",
+        "keys": {
+            "count": "int:0"
+        },
+        "expectedJson": "{\"count\":10}"
+    },
+    {
+        "name": "float_default",
+        "inputJson": "{\"price\":null}",
+        "keys": {
+            "price": "float:0.0"
+        },
+        "expectedJson": "{\"price\":0.0}"
+    },
+    {
+        "name": "decimal_default",
+        "inputJson": "{\"amount\":null}",
+        "keys": {
+            "amount": "decimal:0.00"
+        },
+        "expectedJson": "{\"amount\":\"0.00\"}"
+    },
+    {
+        "name": "existing_float",
+        "inputJson": "{\"price\":9.99}",
+        "keys": {
+            "price": "float:0.0"
+        },
+        "expectedJson": "{\"price\":9.99}"
+    },
+    {
+        "name": "bool_default_true",
+        "inputJson": "{\"isActive\":null}",
+        "keys": {
+            "isActive": "bool:true"
+        },
+        "expectedJson": "{\"isActive\":true}"
+    },
+    {
+        "name": "bool_default_false",
+        "inputJson": "{\"isComplete\":null}",
+        "keys": {
+            "isComplete": "bool:false"
+        },
+        "expectedJson": "{\"isComplete\":false}"
+    },
+    {
+        "name": "existing_bool",
+        "inputJson": "{\"isActive\":false}",
+        "keys": {
+            "isActive": "bool:true"
+        },
+        "expectedJson": "{\"isActive\":false}"
+    },
+    {
+        "name": "array_default",
+        "inputJson": "{\"items\":null}",
+        "keys": {
+            "items": "array"
+        },
+        "expectedJson": "{\"items\":[]}"
+    },
+    {
+        "name": "existing_array",
+        "inputJson": "{\"items\":[1,2,3]}",
+        "keys": {
+            "items": "array"
+        },
+        "expectedJson": "{\"items\":[1,2,3]}"
+    },
+    {
+        "name": "object_default",
+        "inputJson": "{\"settings\":null}",
+        "keys": {
+            "settings": "object"
+        },
+        "expectedJson": "{\"settings\":{}}"
+    },
+    {
+        "name": "existing_object",
+        "inputJson": "{\"settings\":{\"theme\":\"dark\"}}",
+        "keys": {
+            "settings": "object"
+        },
+        "expectedJson": "{\"settings\":{\"theme\":\"dark\"}}"
+    },
+    {
+        "name": "nested_structure_missing_key",
+        "inputJson": "{\"user\":{\"profile\":null}}",
+        "keys": {
+            "user.profile": "string:N/A"
+        },
+        "expectedJson": "{\"user\":{\"profile\":\"N/A\"}}"
+    },    
+    {
+        "name": "nested_structure_correct_type_missing_deep_key",
+        "inputJson": "{\"user\":{\"profile\":{\"name\":\"Test\"}}}",
+        "keys": {
+            "user.profile.address": "string:N/A"
+        },
+        "expectedJson": "{\"user\":{\"profile\":{\"name\":\"Test\",\"address\":\"N/A\"}}}"
+    },
+    {
+        "name": "wildcard_non_array",
+        "inputJson": "{\"items\":[null]}",
+        "keys": {
+            "items.*.name.*": "string:DefaultName"
+        },
+        "expectedJson": "{\"items\":[null]}"
+    },
+    {
+        "name": "wildcard_array_string_default",
+        "inputJson": "{\"items\":[{\"name\":null},{\"name\":\"Item2\"}]}",
+        "keys": {
+            "items.*.name": "string:DefaultName"
+        },
+        "expectedJson": "{\"items\":[{\"name\":\"DefaultName\"},{\"name\":\"Item2\"}]}"
+    },   
+    {
+        "name": "wildcard_array_object_default",
+        "inputJson": "{\"list\":[{\"data\":null},{\"data\":[]}]}",
+        "keys": {
+            "list.*.data": "object"
+        },
+        "expectedJson": "{\"list\":[{\"data\":{}},{\"data\":{}}]}"
+    },
+    {
+        "name": "complex_example_from_doc",
+        "inputJson": "{\n\"name\":null,\n\"structure\":[\n{\n\"rows\":[\n{\n\"columns\":[\n{\n\"price\":null,\n\"data\":[]\n},\n{\n\"price\":2,\n\"data\":[]\n}\n]\n},\n{\n\"columns\":[\n{\n\"price\":1,\n\"data\":{\n\"name\":\"data1\"\n}\n}\n]\n}\n]\n}\n]\n}",
+        "keys": {
+            "name": "string:''",
+            "structure.*.rows.*.columns.*.data": "object",
+            "structure.0.rows.0.columns.0.price": "float:0"
+        },
+        "expectedJson": "{\n\"name\":\"\",\n\"structure\":[\n{\n\"rows\":[\n{\n\"columns\":[\n{\n\"price\":0,\n\"data\":{}\n},\n{\n\"price\":2,\n\"data\":{}\n}\n]\n},\n{\n\"columns\":[\n{\n\"price\":1,\n\"data\":{\n\"name\":\"data1\"\n}\n}\n]\n}\n]\n}\n]\n}"
+    },
+    {
+        "name": "non_existent_top_level_key",
+        "inputJson": "{\"existing\":\"value\"}",
+        "keys": {
+            "new_key": "string:default"
+        },
+        "expectedJson": "{\"existing\":\"value\",\"new_key\":\"default\"}"
+    },
+    {
+        "name": "non_existent_nested_key",
+        "inputJson": "{\"level1\":{\"level2\":{}}}",
+        "keys": {
+            "level1.level2.level3.final": "int:99"
+        },
+        "expectedJson": "{\"level1\":{\"level2\":[]}}"
+    },
+    {
+        "name": "null_default_string",
+        "inputJson": "{\"nullable_string\":\"somevalue\"}",
+        "keys": {
+            "nullable_string": "string:null"
+        },
+        "expectedJson": "{\"nullable_string\":\"somevalue\"}"
+    },
+    {
+        "name": "null_default_string_null_input",
+        "inputJson": "{\"nullable_string\":null}",
+        "keys": {
+            "nullable_string": "string:null"
+        },
+        "expectedJson": "{\"nullable_string\":null}"
+    },
+    {
+        "name": "null_type",
+        "inputJson": "{\"should_be_null\":\"notnull\"}",
+        "keys": {
+            "should_be_null": "null"
+        },
+        "expectedJson": "{\"should_be_null\":null}"
+    },
+    {
+        "name": "null_type_already_null",
+        "inputJson": "{\"should_be_null\":null}",
+        "keys": {
+            "should_be_null": "null"
+        },
+        "expectedJson": "{\"should_be_null\":null}"
+    }
+]

@@ -1,0 +1,4 @@
+.phpunit.cache
+coverage-report
+vendor
+test.sh
