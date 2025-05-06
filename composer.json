@@ -24,5 +24,8 @@
         "phpunit/phpunit": "^12.1",
         "phpstan/phpstan": "^2.1",
         "laravel/pint": "^1.22"
+    },
+    "scripts": {
+        "test": "./vendor/bin/phpunit tests/ --stop-on-error --stop-on-failure" 
     }
 }
